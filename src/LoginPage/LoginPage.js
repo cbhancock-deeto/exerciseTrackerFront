@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import './LoginPage.css';
 
 export default function LoginPage(props) {
 	const usernameRef = useRef();
@@ -23,7 +24,6 @@ export default function LoginPage(props) {
 			.then((result) => {
 				if (result.status === 'success') {
 					props.login(usernameRef.current.value);
-					// console.log(result);
 				} else {
 					console.log(result.message);
 				}
@@ -34,21 +34,35 @@ export default function LoginPage(props) {
 		if (!props.creatingUser) {
 			console.log(props.creatingUser);
 			return (
-				<>
-					<div>
-						Username: <input ref={usernameRef} type='text' />
+				<div className={'l-page'}>
+					<div className={'login-box'}>
+						<div>
+							<label className={'l-label'} for='username'>
+								Username:{' '}
+							</label>{' '}
+							<input ref={usernameRef} type='text' />
+						</div>
+						<br />
+						<div>
+							<label className={'l-label'} for='password'>
+								Password:{' '}
+							</label>{' '}
+							<input ref={passwordRef} type='text' />
+						</div>
+						<br />
+						<div className={'button-box'}>
+							<button className={'l-button'} onClick={handleLogin}>
+								Login
+							</button>
+							<button className={'l-button'} onClick={props.createUser}>
+								Create New User
+							</button>
+						</div>
+						<p>
+							{props.loggedIn ? `${props.user} successfully logged in` : ''}
+						</p>
 					</div>
-					<br />
-					<div>
-						Password: <input ref={passwordRef} type='text' />
-					</div>
-					<br />
-					<button onClick={handleLogin}>Login</button>
-					<br />
-					<br />
-					<button onClick={props.createUser}>Create New User</button>
-					<p>{props.loggedIn ? `${props.user} successfully logged in` : ''}</p>
-				</>
+				</div>
 			);
 		}
 	}

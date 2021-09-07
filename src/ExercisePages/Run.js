@@ -18,7 +18,8 @@ function Run({ user }) {
 		fetch(CRUD_RUN_URL + '/' + user)
 			.then((res) => res.json())
 			.then((result) => {
-				if (result.status === 'success') {
+				console.log(result);
+				if (result.status === 'success' && result.length > 0) {
 					// sort runs by most recent at the beginning of array
 					runData = result.data.runs;
 					runData.sort((a, b) => {
@@ -26,15 +27,16 @@ function Run({ user }) {
 							dateB = new Date(b.date);
 						return dateB - dateA;
 					});
+					console.log(runData);
 					setUserRuns(runData);
 				} else {
-					console.log(result.data.message);
+					//console.log(result.data.message);
 				}
 			});
 	}, []);
 
 	const dateFormatter = (inStr) => {
-		return inStr.slice(0, 10);
+		if (inStr) return inStr.slice(0, 10);
 	};
 
 	const handleClick = (e, a) => {

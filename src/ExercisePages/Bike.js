@@ -18,7 +18,7 @@ function Bike({ user }) {
 		fetch(CRUD_BIKE_URL + '/' + user)
 			.then((res) => res.json())
 			.then((result) => {
-				if (result.status === 'success') {
+				if (result.status === 'success' && result.length > 0) {
 					// sort bikes by most recent at the beginning of array
 					console.log(result.data);
 					bikeData = result.data.bikes;
@@ -29,7 +29,7 @@ function Bike({ user }) {
 					});
 					setUserBikes(bikeData);
 				} else {
-					console.log(result.data);
+					console.log(result.data.message);
 				}
 			});
 	}, []);

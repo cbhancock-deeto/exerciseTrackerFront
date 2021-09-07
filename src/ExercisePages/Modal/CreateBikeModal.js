@@ -37,6 +37,7 @@ function Modal(props) {
 				});
 				props.setUserBikes(bikeData);
 				props.closeModal();
+				document.location.reload(true);
 			});
 	};
 

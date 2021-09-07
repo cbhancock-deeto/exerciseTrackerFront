@@ -37,6 +37,7 @@ function Modal(props) {
 				});
 				props.setUserRuns(runData);
 				props.closeModal();
+				document.location.reload(true);
 			});
 	};
 

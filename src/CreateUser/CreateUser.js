@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import './CreateUser.css';
 
 export default function CreateUser(props) {
 	const newUsernameRef = useRef();
@@ -40,18 +41,35 @@ export default function CreateUser(props) {
 			});
 	}
 
+	const cancelCreateUserHandler = () => {
+		// user is not actually created - this is just to close the create user page
+		props.userCreated();
+	};
+
 	return (
-		<>
-			<div>
-				New username: <input ref={newUsernameRef} type='text' />
+		<div className={'c-user-page'}>
+			<div className={'c-user-box'}>
+				<div className={'user-input'}>
+					<label for='username'>New Username: </label>
+					<input ref={newUsernameRef} type='text' />
+				</div>
+				<div className={'user-input'}>
+					<label for='password'>New Password: </label>{' '}
+					<input ref={newPasswordRef} type='text' />
+				</div>
+				<div className={'user-input'}>
+					<label>Email Address: </label>
+					<input ref={newEmailRef} type='text' />
+				</div>
+				<div className={'button-box'}>
+					<button className={'create-button'} onClick={handleCreateNewUser}>
+						Create Account
+					</button>
+					<button className={'create-button'} onClick={cancelCreateUserHandler}>
+						Cancel
+					</button>
+				</div>
 			</div>
-			<div>
-				New password: <input ref={newPasswordRef} type='text' />
-			</div>
-			<div>
-				Email address: <input ref={newEmailRef} type='text' />
-			</div>
-			<button onClick={handleCreateNewUser}>Create Account</button>
-		</>
+		</div>
 	);
 }

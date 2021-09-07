@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom';
 import { NavBarData } from './NavBarData';
 import './NavBar.css';
 
-export default function NavBar() {
+export default function NavBar({ logout }) {
 	const [sidebar, setSidebar] = useState(false);
 
 	const showSidebar = () => setSidebar(!sidebar);
+
 	return (
 		<>
 			<IconContext.Provider value={{ color: '#fff' }}>
@@ -23,6 +24,12 @@ export default function NavBar() {
 						<li className='navbar-toggle'>
 							<Link to='#' className='menu-bars'>
 								<AiIcons.AiOutlineClose />
+							</Link>
+						</li>
+						<li className={'nav-text'} onClick={logout}>
+							<Link to={'/'}>
+								<AiIcons.AiOutlineLogout />
+								<span>Logout</span>{' '}
 							</Link>
 						</li>
 						{NavBarData.map((item, index) => {

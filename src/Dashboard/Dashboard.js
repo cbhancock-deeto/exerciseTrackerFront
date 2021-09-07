@@ -6,11 +6,11 @@ import Runs from '../ExercisePages/Run';
 import Bikes from '../ExercisePages/Bike';
 import Home from '../ExercisePages/Home';
 
-export default function Dashboard({ user }) {
+export default function Dashboard({ user, logout }) {
 	return (
 		<>
 			<Router>
-				<NavBar />
+				<NavBar logout={logout} />
 				<Switch>
 					<Route path='/' exact>
 						{' '}

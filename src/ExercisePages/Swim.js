@@ -18,7 +18,7 @@ function Swim({ user }) {
 		fetch(CRUD_SWIM_URL + '/' + user)
 			.then((res) => res.json())
 			.then((result) => {
-				if (result.status === 'success') {
+				if (result.status === 'success' && result.length > 0) {
 					// sort swims by most recent at the beginning of array
 					swimData = result.data.swims;
 					console.log(result.data.swims);

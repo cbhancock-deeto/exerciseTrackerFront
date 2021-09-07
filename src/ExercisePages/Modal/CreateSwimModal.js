@@ -37,6 +37,7 @@ function Modal(props) {
 				});
 				props.setUserSwims(swimData);
 				props.closeModal();
+				document.location.reload(true);
 			});
 	};
 

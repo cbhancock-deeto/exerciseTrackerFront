@@ -62,7 +62,6 @@ function Modal(props) {
 		fetch(RUN_DEL_URL, deleteRequestOptions)
 			.then((res) => res.json())
 			.then((result) => {
-				console.log(result);
 				let runData = props.userRuns;
 				let index = runData.findIndex((e) => e._id === props.runId);
 				runData.splice(index, 1);
