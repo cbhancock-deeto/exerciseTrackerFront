@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import './exercise.css';
+import Modal from './Modal/RunModal';
+import CreateRunModal from './Modal/CreateRunModal';
 
 let runData = [];
 
 function Run({ user }) {
 	const [userRuns, setUserRuns] = useState([]);
-	const [updateId, setUpdateId] = useState();
+	const [modalActive, setModalActive] = useState(false);
+	const [createModalActive, setCreateModalActive] = useState(false);
+	const [updateRun, setUpdateRun] = useState();
 
 	// API endpoint for CRUD operations
 	const CRUD_RUN_URL = 'http://localhost:8000/runs';
 
-	// API endpoint for getting one run by id
-	const GET_BY_ID_RUN_URL = 'http://localhost:8000/runById';
-
-	console.log(CRUD_RUN_URL + '/' + user);
 	useEffect(() => {
 		fetch(CRUD_RUN_URL + '/' + user)
 			.then((res) => res.json())
 			.then((result) => {
 				if (result.status === 'success') {
 					// sort runs by most recent at the beginning of array
-					let runData = result.data.runs;
+					runData = result.data.runs;
 					runData.sort((a, b) => {
 						var dateA = new Date(a.date),
 							dateB = new Date(b.date);
@@ -31,33 +31,61 @@ function Run({ user }) {
 					console.log(result.data.message);
 				}
 			});
-	}, [runData]);
+	}, []);
 
 	const dateFormatter = (inStr) => {
 		return inStr.slice(0, 10);
 	};
 
-	const handleClick = (e) => {
-		// console.log(e.target.id);
-		setUpdateId(e.target.id);
-		console.log(updateId);
+	const handleClick = (e, a) => {
+		e.preventDefault();
+		setUpdateRun(a);
+		setModalActive(true);
+	};
+
+	const handleNewRun = () => {
+		setModalActive(false);
+		setCreateModalActive(true);
 	};
 
 	return (
-		<div className='run-page'>
-			{userRuns.map((a) => (
+		<div className='e-page'>
+			<h1 className='exercise-title'>RUNS:</h1>
+			{runData.map((a) => (
 				<div
 					className='exercise-card'
-					id={a._id}
-					onClick={handleClick}
+					onClick={(e) => handleClick(e, a)}
 					key={a._id}
 				>
-					{console.log(a._id)}
 					<h3 className='ecard-date'>Date: {dateFormatter(a.date)}</h3>
 					<div>Distance: {a.distance}</div>
 					<div>Notes: {a.notes}</div> <br />
 				</div>
 			))}
+			<button onClick={handleNewRun} className='new-exercise-button'>
+				New Run
+			</button>
+			{createModalActive && (
+				<CreateRunModal
+					closeModal={() => setCreateModalActive(!createModalActive)}
+					user={user}
+					userRuns={userRuns}
+					setUserRuns={setUserRuns}
+				/>
+			)}
+			{modalActive && (
+				<Modal
+					closeModal={() => setModalActive(!modalActive)}
+					date={updateRun.date}
+					distance={updateRun.distance}
+					notes={updateRun.notes}
+					userId={updateRun.userID}
+					runId={updateRun._id}
+					setUserRuns={setUserRuns}
+					userRuns={userRuns}
+					dateFormatter={dateFormatter}
+				/>
+			)}
 		</div>
 	);
 }

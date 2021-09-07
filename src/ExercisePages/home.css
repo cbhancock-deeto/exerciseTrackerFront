@@ -1,0 +1,12 @@
+.home-page {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #a6acd3;
+}
+
+.home-title {
+	font-size: 2.7rem;
+	padding-top: 245px;
+}

@@ -5,6 +5,10 @@
 	margin: 5px;
 	padding: 5px 10px;
 	font-size: 22px;
+	box-shadow: 4px 2px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .exercise-card:hover {
@@ -12,13 +16,35 @@
 	cursor: pointer;
 }
 
+.exercise-title {
+	font-size: 2.5rem;
+	text-decoration: underline;
+	padding-bottom: 12px;
+}
+
+.new-exercise-button {
+	position: absolute;
+	top: 125px;
+	right: 10px;
+	height: 35px;
+	width: 100px;
+	background-color: #2031a0;
+	color: #fff;
+}
+
+.new-exercise-button:hover {
+	cursor: pointer;
+	background-color: #4f5aa0;
+}
+
 .ecard-date {
 	text-decoration: underline;
 }
 
-.run-page {
+.e-page {
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
+	background-color: #a6acd3;
 }
